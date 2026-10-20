@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Un viñedo para Lanzarote · Proyecto ABP · Viticultura</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Domine:wght@500;700&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --volcan:#1E1A1C; --volcan2:#2E2729; --picon:#3A3236;
+  --vino:#7A1F3D; --vino-claro:#F3E6EA;
+  --vid:#4E7A33; --vid-oscuro:#355723; --vid-claro:#E8F0E1;
+  --oro:#C9A227; --oro-claro:#F6EDD0;
+  --papel:#FAF7F2; --blanco:#FFFFFF; --tinta:#2A2326; --gris:#6E6468; --linea:#E5DDD8;
+  --r:16px; --sombra:0 2px 10px rgba(30,26,28,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito Sans',Arial,sans-serif;background:var(--papel);color:var(--tinta);line-height:1.55;font-size:17px}
+h1,h2,h3{font-family:'Domine',Georgia,serif;line-height:1.2}
+a{color:var(--vino)}
+button{font-family:inherit;cursor:pointer}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+
+/* Cabecera */
+header.hero{background:var(--volcan);color:#F5EEE9;position:relative;overflow:hidden}
+.hero svg.hoyos{position:absolute;right:-40px;bottom:-30px;width:560px;max-width:70%;opacity:.9}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 0;position:relative;z-index:2;flex-wrap:wrap}
+.marca{display:flex;align-items:center;gap:12px}
+.marca img{height:46px;width:auto;background:#fff;border-radius:8px;padding:4px}
+.marca .txt{font-size:14px;line-height:1.3;color:#D9CCC6}
+.marca .txt b{color:#fff;font-size:15px}
+.curso{font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--oro);border:1px solid rgba(201,162,39,.5);padding:6px 12px;border-radius:999px}
+.hero-body{position:relative;z-index:2;padding:48px 0 72px;max-width:640px}
+.eyebrow{font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#B7D39F}
+.hero h1{font-size:clamp(36px,6vw,58px);margin:10px 0 16px;color:#fff}
+.hero p.lead{font-size:clamp(18px,2.4vw,21px);color:#E6DAD4}
+.pregunta{margin-top:26px;background:rgba(255,255,255,.07);border-left:0;border-radius:var(--r);padding:18px 22px}
+.pregunta small{display:block;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--oro);margin-bottom:6px}
+.pregunta p{font-family:'Domine',serif;font-size:clamp(18px,2.4vw,22px);color:#fff}
+
+/* Navegación */
+nav.menu{position:sticky;top:0;z-index:50;background:var(--blanco);border-bottom:1px solid var(--linea);box-shadow:var(--sombra)}
+nav.menu .wrap{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+nav.menu .wrap::-webkit-scrollbar{display:none}
+nav.menu a{flex:none;text-decoration:none;color:var(--gris);font-weight:700;font-size:15px;padding:14px 12px;border-bottom:3px solid transparent;white-space:nowrap}
+nav.menu a.activo{color:var(--vino);border-bottom-color:var(--vino)}
+.progreso{position:fixed;top:0;left:0;height:4px;background:var(--oro);width:0;z-index:60}
+
+section.bloque{padding:64px 0;border-bottom:1px solid var(--linea)}
+section.bloque:nth-of-type(even){background:var(--blanco)}
+.sec-head{margin-bottom:28px;max-width:720px}
+.sec-head .num{display:inline-block;font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--vid);margin-bottom:8px}
+.sec-head h2{font-size:clamp(28px,4vw,38px);color:var(--vino)}
+.sec-head p{margin-top:10px;color:var(--gris);font-size:18px}
+
+/* Tarjetas genéricas */
+.grid{display:grid;gap:18px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card{background:var(--blanco);border:1px solid var(--linea);border-radius:var(--r);padding:22px;box-shadow:var(--sombra)}
+section.bloque:nth-of-type(even) .card{background:var(--papel)}
+.card h3{font-size:20px;margin-bottom:8px;color:var(--tinta)}
+.tag{display:inline-block;font-size:12px;font-weight:800;padding:3px 10px;border-radius:999px;background:var(--vid-claro);color:var(--vid-oscuro);margin:2px 4px 2px 0}
+.tag.vino{background:var(--vino-claro);color:var(--vino)}
+.tag.oro{background:var(--oro-claro);color:#7A5F0B}
+
+/* El reto */
+.reto-flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;counter-reset:paso}
+.paso{position:relative;background:var(--blanco);border-radius:var(--r);padding:20px;border:1px solid var(--linea)}
+.paso .ico{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-size:22px;margin-bottom:10px}
+.paso:nth-child(1) .ico{background:var(--vino-claro)}
+.paso:nth-child(2) .ico{background:var(--vid-claro)}
+.paso:nth-child(3) .ico{background:var(--oro-claro)}
+.paso:nth-child(4) .ico{background:#E6E1E3}
+.paso h3{font-size:18px}
+.paso p{font-size:16px;color:var(--gris)}
+
+/* Encargos */
+.encargos{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+.encargo{background:var(--blanco);border-radius:var(--r);border:2px solid var(--linea);padding:20px;transition:transform .25s,border-color .25s,box-shadow .25s;position:relative}
+.encargo .gnum{position:absolute;top:16px;right:18px;font-family:'Domine',serif;font-size:34px;color:var(--linea);font-weight:700}
+.encargo .zona{font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--vid)}
+.encargo h3{font-size:21px;margin:6px 0 10px;color:var(--vino);padding-right:40px}
+.encargo .reto{font-size:15.5px;color:var(--tinta);background:var(--papel);border-radius:10px;padding:10px 12px}
+.encargo.elegido{border-color:var(--oro);box-shadow:0 0 0 4px rgba(201,162,39,.25);transform:translateY(-4px)}
+.encargo.elegido .gnum{color:var(--oro)}
+.sorteo{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:0 0 24px}
+.btn{border:0;border-radius:999px;padding:12px 22px;font-weight:800;font-size:16px;background:var(--vino);color:#fff;transition:background .2s,transform .1s}
+.btn:hover{background:#621831}
+.btn:active{transform:scale(.97)}
+.btn.sec{background:var(--blanco);color:var(--vino);border:2px solid var(--vino)}
+.btn.sec:hover{background:var(--vino-claro)}
+.btn.verde{background:var(--vid)}
+.btn.verde:hover{background:var(--vid-oscuro)}
+.sorteo .resultado{font-weight:700;color:var(--vino);min-height:1.5em}
+.nota{font-size:15px;color:var(--gris);margin-top:16px}
+
+/* Roles */
+.roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.rol{border-radius:var(--r);padding:20px;color:#fff;cursor:pointer;min-height:190px;display:flex;flex-direction:column;justify-content:space-between;border:0;text-align:left;font-size:16px;transition:transform .2s}
+.rol:hover{transform:translateY(-3px)}
+.rol .emoji{font-size:30px}
+.rol h3{font-size:20px;color:#fff;margin:8px 0 4px}
+.rol .mas{font-size:14px;opacity:.85;font-weight:700}
+.rol .detalle{display:none;font-size:15px;line-height:1.5;margin-top:8px}
+.rol.abierto .detalle{display:block}
+.rol.abierto .mas{display:none}
+.r1{background:var(--vino)} .r2{background:var(--vid-oscuro)} .r3{background:#5A4A52} .r4{background:#8A6A0F}
+.rotacion{margin-top:28px;overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:15.5px;background:var(--blanco);border-radius:12px;overflow:hidden}
+th,td{padding:10px 12px;border-bottom:1px solid var(--linea);text-align:left;vertical-align:top}
+th{background:var(--volcan2);color:#fff;font-weight:700;font-size:14.5px}
+tr:last-child td{border-bottom:0}
+
+/* Fases */
+.fases-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:22px}
+.ftab{border:2px solid var(--linea);background:var(--blanco);border-radius:var(--r);padding:16px;text-align:left;transition:all .2s}
+.ftab .t{font-size:12.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--gris)}
+.ftab .n{font-family:'Domine',serif;font-size:19px;font-weight:700;color:var(--tinta);margin-top:4px;line-height:1.25}
+.ftab .h{font-size:14px;color:var(--gris);margin-top:6px}
+.ftab.activa{border-color:var(--vino);background:var(--vino);}
+.ftab.activa .t,.ftab.activa .n,.ftab.activa .h{color:#fff}
+.fase-panel{background:var(--blanco);border:1px solid var(--linea);border-radius:var(--r);padding:24px;box-shadow:var(--sombra)}
+.fase-top{display:flex;gap:18px;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;margin-bottom:18px}
+.fase-top h3{font-size:24px;color:var(--vino)}
+.fase-top .meta{font-size:15px;color:var(--gris);margin-top:4px}
+.fase-ra{display:flex;flex-wrap:wrap;gap:6px}
+.tareas{display:flex;flex-direction:column;gap:10px}
+.tarea{border:1px solid var(--linea);border-radius:12px;overflow:hidden}
+.tarea > button{width:100%;display:flex;align-items:center;gap:12px;background:var(--papel);border:0;padding:14px 16px;text-align:left;font-size:16.5px;font-weight:700;color:var(--tinta)}
+.tarea .cod{flex:none;font-family:'Domine',serif;font-weight:700;color:var(--vino);min-width:34px}
+.tarea .tit{flex:1}
+.tarea .ut{flex:none;font-size:13px;font-weight:800;color:var(--vid-oscuro);background:var(--vid-claro);border-radius:999px;padding:3px 10px}
+.tarea .flecha{flex:none;transition:transform .2s;color:var(--gris)}
+.tarea.abierta .flecha{transform:rotate(90deg)}
+.tarea .cuerpo{display:none;padding:14px 16px 16px 62px;font-size:16px;background:var(--blanco)}
+.tarea.abierta .cuerpo{display:block}
+.tarea .cuerpo .ce{margin-top:8px}
+.entregable{margin-top:20px;background:var(--oro-claro);border-radius:12px;padding:16px 18px;font-size:16px}
+.entregable b{color:#6B5310}
+.aviso{margin-top:12px;background:var(--vid-claro);border-radius:12px;padding:14px 18px;font-size:15.5px}
+
+/* Evaluación */
+.calc{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;align-items:end}
+.calc label{display:block;font-size:14px;font-weight:700;color:var(--gris);margin-bottom:6px}
+.calc input{width:100%;font-size:20px;font-family:inherit;padding:10px 12px;border:2px solid var(--linea);border-radius:10px;background:var(--blanco)}
+.calc input:focus{outline:none;border-color:var(--vid)}
+.nota-ce{background:var(--vino);color:#fff;border-radius:12px;padding:14px;text-align:center}
+.nota-ce .v{font-family:'Domine',serif;font-size:38px;font-weight:700;line-height:1}
+.nota-ce .l{font-size:13px;font-weight:700;opacity:.85}
+.formula{margin-top:12px;font-size:15.5px;color:var(--gris)}
+.rubrica td.nivel{cursor:pointer;transition:background .15s}
+.rubrica td.nivel:hover{background:var(--oro-claro)}
+.rubrica td.sel{background:var(--vid-claro);font-weight:700;box-shadow:inset 0 0 0 2px var(--vid)}
+.rubrica th:first-child,.rubrica td:first-child{font-weight:700;width:150px}
+.rub-res{margin-top:14px;font-size:16px;font-weight:700;color:var(--vino)}
+
+/* Calendario */
+.timeline{position:relative;margin-left:10px;padding-left:28px;border-left:3px solid var(--linea)}
+.hito{position:relative;padding:0 0 22px}
+.hito::before{content:"";position:absolute;left:-38px;top:4px;width:17px;height:17px;border-radius:50%;background:var(--blanco);border:3px solid var(--vid)}
+.hito.pasado::before{background:var(--vid)}
+.hito.siguiente::before{background:var(--oro);border-color:var(--oro);box-shadow:0 0 0 6px rgba(201,162,39,.25)}
+.hito .f{font-size:13.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--gris)}
+.hito h3{font-size:18px;margin:2px 0}
+.hito p{font-size:15.5px;color:var(--gris)}
+.hito.siguiente h3{color:#7A5F0B}
+.cuenta{display:flex;align-items:center;gap:18px;background:var(--volcan);color:#fff;border-radius:var(--r);padding:20px 24px;margin-bottom:26px;flex-wrap:wrap}
+.cuenta .dias{font-family:'Domine',serif;font-size:48px;font-weight:700;color:var(--oro);line-height:1}
+.cuenta .q{font-size:16px;color:#E6DAD4}
+.cuenta .q b{color:#fff;display:block;font-size:19px}
+
+/* Checklist */
+.check-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.ctab{border:2px solid var(--linea);background:var(--blanco);border-radius:999px;padding:8px 16px;font-weight:700;font-size:15px;color:var(--gris)}
+.ctab.activa{border-color:var(--vid);color:var(--vid-oscuro);background:var(--vid-claro)}
+.checklist{list-style:none;display:flex;flex-direction:column;gap:8px}
+.checklist li label{display:flex;gap:12px;align-items:flex-start;background:var(--blanco);border:1px solid var(--linea);border-radius:12px;padding:12px 14px;cursor:pointer;font-size:16px}
+.checklist input{width:20px;height:20px;margin-top:2px;accent-color:var(--vid);flex:none}
+.checklist li.hecho label{background:var(--vid-claro);color:var(--vid-oscuro)}
+.barra{height:10px;background:var(--linea);border-radius:99px;overflow:hidden;margin:14px 0 6px}
+.barra i{display:block;height:100%;background:var(--vid);width:0;transition:width .3s}
+
+/* Quiz */
+.quiz{max-width:760px}
+.preg{background:var(--blanco);border:1px solid var(--linea);border-radius:var(--r);padding:22px;box-shadow:var(--sombra)}
+.preg .contador{font-size:13px;font-weight:800;color:var(--gris);letter-spacing:.08em;text-transform:uppercase}
+.preg h3{font-size:21px;margin:8px 0 16px}
+.opcs{display:flex;flex-direction:column;gap:10px}
+.opc{border:2px solid var(--linea);background:var(--papel);border-radius:12px;padding:12px 14px;text-align:left;font-size:16px;color:var(--tinta);transition:border-color .15s}
+.opc:hover:not(:disabled){border-color:var(--vid)}
+.opc.ok{border-color:var(--vid);background:var(--vid-claro);font-weight:700}
+.opc.mal{border-color:var(--vino);background:var(--vino-claro)}
+.opc:disabled{cursor:default}
+.feedback{margin-top:14px;font-size:16px;display:none;border-radius:12px;padding:12px 14px;background:var(--papel)}
+.feedback.v{display:block}
+.quiz-nav{margin-top:16px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.final{text-align:center;padding:30px}
+.final .v{font-family:'Domine',serif;font-size:54px;color:var(--vino);font-weight:700}
+
+footer{background:var(--volcan);color:#CFC3BD;padding:30px 0;font-size:14.5px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer b{color:#fff}
+
+@media (max-width:720px){
+  body{font-size:16px}
+  .fases-tabs{grid-template-columns:1fr}
+  .tarea .cuerpo{padding-left:16px}
+  .tarea .ut{display:none}
+  section.bloque{padding:48px 0}
+  .hero-body{padding:28px 0 56px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="progreso" id="progreso"></div>
+
+<header class="hero" id="inicio">
+  <svg class="hoyos" viewBox="0 0 560 300" aria-hidden="true">
+    <defs>
+      <radialGradient id="hoyo" cx="50%" cy="45%" r="55%">
+        <stop offset="0%" stop-color="#4E7A33"/>
+        <stop offset="35%" stop-color="#2F3E27"/>
+        <stop offset="70%" stop-color="#2A2426"/>
+        <stop offset="100%" stop-color="#3A3236"/>
+      </radialGradient>
+    </defs>
+    <path d="M0 210 Q140 130 260 170 T560 120 V300 H0Z" fill="#2E2729"/>
+    <g>
+      <ellipse cx="120" cy="240" rx="78" ry="34" fill="url(#hoyo)"/>
+      <path d="M44 240 A78 34 0 0 1 196 240" fill="none" stroke="#5A4E52" stroke-width="10" stroke-linecap="round"/>
+      <ellipse cx="300" cy="215" rx="70" ry="30" fill="url(#hoyo)"/>
+      <path d="M232 215 A70 30 0 0 1 368 215" fill="none" stroke="#5A4E52" stroke-width="9" stroke-linecap="round"/>
+      <ellipse cx="465" cy="190" rx="62" ry="27" fill="url(#hoyo)"/>
+      <path d="M405 190 A62 27 0 0 1 525 190" fill="none" stroke="#5A4E52" stroke-width="8" stroke-linecap="round"/>
+      <circle cx="120" cy="228" r="13" fill="#6E9A4D"/><circle cx="108" cy="232" r="8" fill="#86B05F"/>
+      <circle cx="300" cy="204" r="11" fill="#6E9A4D"/><circle cx="312" cy="208" r="7" fill="#86B05F"/>
+      <circle cx="465" cy="180" r="10" fill="#6E9A4D"/>
+    </g>
+    <path d="M330 60 L380 10 L430 60 Z" fill="#3A3236" opacity=".6"/>
+  </svg>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="marca">
+        <img src="logo-zonzamas.png" alt="Logo del CIFP Zonzamas" onerror="this.style.display='none'">
+        <div class="txt"><b>CIFP Zonzamas</b><br>1.º CFGS Vitivinicultura · Viticultura</div>
+      </div>
+      <span class="curso">Curso 2026/27</span>
+    </div>
+    <div class="hero-body">
+      <div class="eyebrow">Proyecto ABP · todo el curso</div>
+      <h1>Un viñedo para Lanzarote</h1>
+      <p class="lead">Este curso vais a trabajar como el equipo técnico de una consultora vitícola. Una bodega os encarga diseñar y planificar un viñedo para producir su vino.</p>
+      <div class="pregunta">
+        <small>Pregunta guía</small>
+        <p>¿Cómo planificaríamos, desde el suelo hasta la vendimia, un viñedo en Lanzarote capaz de dar el vino que nos pide la bodega?</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="menu" aria-label="Secciones">
+  <div class="wrap">
+    <a href="#reto">El reto</a>
+    <a href="#encargos">Encargos</a>
+    <a href="#roles">Roles</a>
+    <a href="#fases">Fases</a>
+    <a href="#evaluacion">Evaluación</a>
+    <a href="#calendario">Calendario</a>
+    <a href="#checklist">Checklist</a>
+    <a href="#quiz">¿Lo has entendido?</a>
+  </div>
+</nav>
+
+<main>
+<section class="bloque" id="reto">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="num">1 · El reto</span>
+      <h2>¿En qué consiste el proyecto?</h2>
+      <p>Un mismo encargo durante todo el curso, resuelto por partes. Cada trimestre añadís un capítulo al proyecto, siguiendo lo que vemos en clase.</p>
+    </div>
+    <div class="reto-flow">
+      <div class="paso"><div class="ico">🍷</div><h3>La bodega encarga</h3><p>Cada grupo recibe una zona de Lanzarote y un tipo de vino.</p></div>
+      <div class="paso"><div class="ico">🧭</div><h3>La consultora decide</h3><p>Estudiáis la parcela, diseñáis la plantación y planificáis el cultivo.</p></div>
+      <div class="paso"><div class="ico">📁</div><h3>El dossier crece</h3><p>Al final de cada trimestre entregáis una parte del <b>Proyecto técnico del viñedo</b>.</p></div>
+      <div class="paso"><div class="ico">🎤</div><h3>Defendéis el proyecto</h3><p>A finales de abril, antes de la Dual, lo presentáis ante «la bodega» en unos 15 minutos.</p></div>
+    </div>
+    <div class="grid g2" style="margin-top:22px">
+      <div class="card"><h3>¿Qué es aprender por proyectos?</h3><p>En lugar de estudiar cada tema por separado, usáis lo que aprendéis en cada unidad para resolver un problema real del sector. Las decisiones técnicas deben estar justificadas, como haría un técnico vitivinícola.</p></div>
+      <div class="card"><h3>¿Y los exámenes?</h3><p>Siguen igual. El proyecto <b>no sustituye</b> a los exámenes de cada UT: sus entregables son una evidencia más para los criterios de evaluación (CE), junto a exámenes y prácticas.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" id="encargos">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="num">2 · Los encargos</span>
+      <h2>Seis bodegas, seis vinos distintos</h2>
+      <p>Cada grupo de 3 o 4 personas recibe un encargo diferente, para que las decisiones técnicas no coincidan.</p>
+    </div>
+    <div class="sorteo">
+      <button class="btn" id="btnSorteo">🎲 Sortear un encargo</button>
+      <button class="btn sec" id="btnLimpiar">Quitar selección</button>
+      <span class="resultado" id="resSorteo" aria-live="polite"></span>
+    </div>
+    <div class="encargos" id="listaEncargos"></div>
+    <p class="nota">Los marcos de referencia proceden de la ficha técnica del cultivo de la vid del Cabildo de Lanzarote. Si trabajamos con una finca colaboradora o con la parcela del centro, un grupo puede usarla en lugar de una parcela supuesta.</p>
+  </div>
+</section>
+
+<section class="bloque" id="roles">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="num">3 · Roles</span>
+      <h2>Cuatro roles que rotan cada trimestre</h2>
+      <p>Pulsa en cada rol para ver qué hace. Al rotar, cada persona ejerce al menos tres roles durante el curso.</p>
+    </div>
+    <div class="roles" id="listaRoles"></div>
+    <div class="rotacion">
+      <table>
+        <thead><tr><th>Ejemplo de rotación</th><th>1.º trimestre</th><th>2.º trimestre</th><th>3.º trimestre</th></tr></thead>
+        <tbody>
+          <tr><td>Persona A</td><td>Coordinación</td><td>Datos y cálculos</td><td>Documentación y TIC</td></tr>
+          <tr><td>Persona B</td><td>Datos y cálculos</td><td>Documentación y TIC</td><td>Seguridad y medio ambiente</td></tr>
+          <tr><td>Persona C</td><td>Documentación y TIC</td><td>Seguridad y medio ambiente</td><td>Coordinación</td></tr>
+          <tr><td>Persona D</td><td>Seguridad y medio ambiente</td><td>Coordinación</td><td>Datos y cálculos</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card" style="margin-top:22px">
+      <h3>📒 El cuaderno de proyecto</h3>
+      <p>Cada grupo tiene una carpeta compartida en Classroom con el diario de sesiones, las decisiones y su justificación, los datos de campo y las versiones de cada entregable. <b>Cada apartado del dossier lleva el nombre de quien lo redactó.</b></p>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" id="fases">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="num">4 · Las fases</span>
+      <h2>Una fase por trimestre</h2>
+      <p>Elige una fase y pulsa en cada tarea para ver qué tiene que aparecer en vuestro entregable y qué criterios de evaluación (CE) demuestra.</p>
+    </div>
+    <div class="fases-tabs" id="fasesTabs" role="tablist"></div>
+    <div class="fase-panel" id="fasePanel" role="tabpanel"></div>
+  </div>
+</section>
+
+<section class="bloque" id="evaluacion">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="num">5 · Evaluación</span>
+      <h2>¿Cómo cuenta el proyecto en la nota?</h2>
+      <p>Igual que el resto del módulo: la nota se construye por criterios de evaluación. Todos los CE pesan lo mismo y cada entregable del proyecto es una evidencia para los CE de su tabla.</p>
+    </div>
+    <div class="grid g2">
+      <div class="card">
+        <h3>🧮 Calcula la nota de un CE</h3>
+        <p style="font-size:15.5px;color:var(--gris);margin-bottom:14px">Si un CE tiene varias evidencias calificadas, se hace la media aritmética. Deja vacío lo que no se haya evaluado.</p>
+        <div class="calc">
+          <div><label for="cEx">Examen de la UT</label><input id="cEx" type="number" min="0" max="10" step="0.1" value="7"></div>
+          <div><label for="cPr">Entregable del proyecto</label><input id="cPr" type="number" min="0" max="10" step="0.1" value="8"></div>
+          <div><label for="cPa">Práctica</label><input id="cPa" type="number" min="0" max="10" step="0.1" value="9"></div>
+          <div class="nota-ce"><div class="v" id="cRes">8</div><div class="l">nota del CE</div></div>
+        </div>
+        <p class="formula" id="cFor">(7 + 8 + 9) ÷ 3 = 8</p>
+      </div>
+      <div class="card">
+        <h3>👥 Parte individual</h3>
+        <p>La nota de un apartado se aplica a todo el grupo. Si el cuaderno o la coevaluación muestran que alguien no participó en un apartado, ese CE se le evalúa con una <b>evidencia individual</b>: una pregunta oral o una tarea breve.</p>
+        <h3 style="margin-top:16px">🔁 Autoevaluación y coevaluación</h3>
+        <p>Al cerrar cada fase rellenáis un formulario corto sobre vuestra aportación y la de vuestros compañeros. Es formativo: <b>no suma ni resta nota</b>.</p>
+        <h3 style="margin-top:16px">♻️ Recuperación</h3>
+        <p>Un CE no superado se recupera dentro del trimestre corrigiendo el apartado o con una evidencia equivalente. Si el CE es práctico, la recuperación incluye una práctica.</p>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:22px;overflow-x:auto">
+      <h3>📋 La rúbrica del proyecto</h3>
+      <p style="font-size:15.5px;color:var(--gris);margin-bottom:12px">Pulsa en el nivel que crees que alcanza una parte de vuestro trabajo: te sirve para autoevaluaros antes de entregar.</p>
+      <table class="rubrica" id="rubrica"></table>
+      <p class="rub-res" id="rubRes" aria-live="polite"></p>
+    </div>
+  </div>
+</section>
+
+<section class="bloque" id="calendario">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="num">6 · Calendario</span>
+      <h2>Hitos del proyecto</h2>
+      <p>Fechas orientativas: pueden moverse según el calendario escolar y el estado real del viñedo.</p>
+    </div>
+    <div class="cuenta" id="cuenta"></div>
+    <div class="timeline" id="timeline"></div>
+  </div>
+</section>
+
+<section class="bloque" id="checklist">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="num">7 · Antes de entregar</span>
+      <h2>Checklist del grupo</h2>
+      <p>Marca lo que ya tenéis listo. Se guarda en este navegador para que podáis volver a consultarla.</p>
+    </div>
+    <div class="check-tabs" id="checkTabs"></div>
+    <div class="barra"><i id="barra"></i></div>
+    <p class="nota" id="barraTxt" style="margin:0 0 14px"></p>
+    <ul class="checklist" id="checkLista"></ul>
+  </div>
+</section>
+
+<section class="bloque" id="quiz">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="num">8 · Comprueba</span>
+      <h2>¿Lo has entendido?</h2>
+      <p>Ocho preguntas rápidas sobre cómo funciona el proyecto.</p>
+    </div>
+    <div class="quiz" id="quizBox"></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><b>Viticultura · 1.º CFGS Vitivinicultura</b><br>CIFP Zonzamas · Curso 2026/27</div>
+    <div>Docente: <b>Beatriz Socas Guerra</b><br>Módulo 0077 · RD 1688/2007</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  /* ---------- Datos ---------- */
+  const ENCARGOS = [
+    {g:1, zona:"La Geria · hoyos en picón", vino:"Malvasía volcánica, blanco seco", reto:"Marcos de 4–15 m, cultivo de secano y mecanización casi nula."},
+    {g:2, zona:"La Geria · hoyos en picón", vino:"Malvasía dulce o semidulce", reto:"El mismo medio que el grupo 1, pero con otra madurez objetivo."},
+    {g:3, zona:"Tinajo · zanjas", vino:"Listán negro, tinto joven", reto:"Marco de unos 2,5 m; hay que controlar el color y la madurez fenólica."},
+    {g:4, zona:"Zona norte · Haría", vino:"Blanco de Diego o Listán blanco", reto:"Marco de unos 2 m, más humedad y otros riesgos sanitarios."},
+    {g:5, zona:"Centro de la isla · San Bartolomé o Tías", vino:"Moscatel dulce", reto:"Se busca sobremaduración, con riesgo de podredumbre."},
+    {g:6, zona:"Tinajo · zanjas", vino:"Negramoll, rosado", reto:"Vendimia temprana para conservar la acidez."}
+  ];
+  const ROLES = [
+    {c:"r1", e:"🧭", n:"Coordinación", d:"Reparte las tareas, controla los plazos y es el contacto con la bodega (la docente). Abre y cierra cada sesión revisando el cuaderno."},
+    {c:"r2", e:"📊", n:"Datos y cálculos", d:"Se encarga de los análisis de suelo, los índices bioclimáticos, los ºBrix, los marcos, las densidades y las dosis. Comprueba que cada número tiene su fuente."},
+    {c:"r3", e:"💻", n:"Documentación y TIC", d:"Mantiene el cuaderno de proyecto, maqueta el dossier y guarda los registros digitales y las versiones de cada entregable."},
+    {c:"r4", e:"🦺", n:"Seguridad y medio ambiente", d:"Revisa los EPI, los riesgos y el impacto ambiental de cada decisión. Prepara desde el primer trimestre la parte de seguridad de la UT 8."}
+  ];
+  const FASES = [
+    {t:"1.º trimestre", n:"¿Sirve nuestra parcela para nuestro vino?", h:"Septiembre–diciembre · 84 h", ut:"UT 3, UT 4, UT 1, UT 2 e inicio de la UT 5", ra:["RA1","RA6","RA2 a"],
+     intro:"Conocéis vuestra variedad, estudiáis el suelo y el clima de la parcela y aprendéis a decidir la vendimia.",
+     tareas:[
+      ["1.1","Ficha de la variedad","UT 3","RA1 e, g","Morfología y rasgos ampelográficos de la variedad, aptitud agronómica y enológica, y fotos propias de sus órganos."],
+      ["1.2","¿Pie franco o portainjerto?","UT 3","RA1 h","La situación prefiloxérica de Canarias y una decisión justificada para vuestra parcela."],
+      ["1.3","Calendario fenológico","UT 4","RA1 f · RA6 a","Los estados de Baggiolini de vuestra variedad, con fechas aproximadas para la zona y fotos del viñedo del centro."],
+      ["1.4","Plan de control de maduración","UT 4","RA6 b, c, d, f, g, h","Madurez objetivo según vuestro vino, tipo de muestreo y periodicidad, métodos de madurez fenólica y alteraciones probables."],
+      ["1.5","Decisión de vendimia con datos","UT 4","RA6 e","Gráfica de ºBrix, pH y acidez total con datos reales y la fecha de vendimia que proponéis."],
+      ["1.6","Estudio del suelo","UT 1","RA1 a, b","El muestreo hecho en la práctica, el análisis interpretado y los factores limitantes de la parcela."],
+      ["1.7","Estudio del clima","UT 2","RA1 c, d","Datos de la estación más cercana, efecto del viento y la radiación, e índices bioclimáticos calculados."],
+      ["1.8","Objetivo productivo","Inicio UT 5","RA2 a","La ficha del vino que vais a elaborar: estilo, rendimiento objetivo y calidad buscada."]
+     ],
+     ent:"<b>Entregable:</b> Informe de idoneidad y plan de maduración (tareas 1.1 a 1.8) y una exposición de 5 minutos: «¿Es buena nuestra parcela para nuestro vino?».",
+     aviso:"💡 En Lanzarote la vendimia es en julio y agosto, así que en octubre no hay uva que muestrear. Para la tarea 1.5 trabajaréis con datos reales de controles de maduración de la campaña anterior."},
+    {t:"2.º trimestre", n:"Diseñamos y manejamos el viñedo", h:"Enero–marzo · 60 h", ut:"UT 5, UT 6 e inicio de la UT 7", ra:["RA2","RA3","RA4"],
+     intro:"Con el informe de la fase 1 como base, diseñáis la plantación y el calendario anual de labores. Es la fase con más CE del módulo.",
+     tareas:[
+      ["2.1","Material vegetal","UT 5","RA2 b, c, f, g","Variedad y clon, pie franco o portainjerto coherente con la fase 1, planta-injerto o barbado, y control de la recepción de la planta."],
+      ["2.2","Plano de la plantación","UT 5","RA2 d","Plano a escala con orientación, marco y densidad, adaptado a hoyos o zanjas."],
+      ["2.3","Plan de plantación","UT 5","RA2 e, h, i","Labores previas, época, técnica y medios según el terreno y el presupuesto, y cuidados posteriores."],
+      ["2.4","Sistema de conducción","UT 5","RA3 a, b, c, d","Comparación de vaso, rastrero y espaldera, elección justificada, materiales y manejo de la vegetación."],
+      ["2.5","Plan de poda","UT 6","RA3 e, f","Sistema, época y herramientas, con el registro de la práctica de poda de invierno."],
+      ["2.6","Operaciones en verde","UT 6","RA3 g · RA4 h","Espergura, desnietado, despunte, deshojado y aclareo: cuándo y para qué en vuestro vino."],
+      ["2.7","Suelo y nutrición","UT 6","RA4 a, b, c, d, e","Mantenimiento del suelo con picón o cubierta, abonado según el análisis de la fase 1, y carencias y fitotoxicidades más probables."],
+      ["2.8","Plan de riego","UT 6","RA4 f, g","Riego de apoyo o secano, con la evapotranspiración, el tipo de suelo, las restricciones legales y el método elegido."],
+      ["2.9","Operaciones especiales","UT 6","RA4 i","Qué haríais para reestructurar la parcela o cambiar de variedad mediante injerto."]
+     ],
+     ent:"<b>Entregable:</b> Proyecto de plantación y plan anual de cultivo, con plano y calendario anual de labores.",
+     aviso:"🔄 Antes de entregar, cada grupo revisa el trabajo de otro con una lista de cotejo y le devuelve tres mejoras. Esta revisión no cuenta para la nota."},
+    {t:"3.er trimestre", n:"Protegemos el viñedo y defendemos el proyecto", h:"Abril · 30 h", ut:"Final de la UT 7 y UT 8", ra:["RA5"],
+     intro:"Completáis el dossier con la sanidad y la seguridad y lo defendéis antes de la Dual. La tarea 3.1 empieza en marzo, cuando estudiamos los síntomas en el viñedo.",
+     tareas:[
+      ["3.1","Fichas de diagnóstico","UT 7","RA5 a, d","Plagas, enfermedades y virosis más probables en vuestra zona, con síntomas, daños y umbral de intervención."],
+      ["3.2","Estilo de protección","UT 7","RA5 b, c","Ecológica, integrada u otra, según la filosofía de vuestra bodega, priorizando la lucha integrada y la biológica."],
+      ["3.3","Plan de tratamientos","UT 7","RA5 e, f","Producto, dosis y momento ligados al calendario fenológico de la fase 1, y equipo de aplicación."],
+      ["3.4","Plan de seguridad","UT 8","RA5 g, h","EPI de cada labor planificada, riesgos de la maquinaria y gestión de envases y restos de fitosanitarios."],
+      ["3.5","Dossier final y defensa","Todas","—","El dossier unificado con las correcciones de las fases 1 y 2, y una defensa oral de unos 15 minutos."]
+     ],
+     ent:"<b>Entregable:</b> Plan de protección y seguridad y el Proyecto técnico del viñedo completo. En la defensa, cada persona expone la parte que redactó y responde a una pregunta individual sobre otra parte.",
+     aviso:"🐛 Punto de partida: las plagas y enfermedades de la ficha técnica del Cabildo (melazo, mosquito verde, mosca del vinagre y ácaros; oídio, mildiu y botritis)."}
+  ];
+  const RUBRICA = {
+    niveles:["Insuficiente (1–4)","Suficiente (5–6)","Notable (7–8)","Sobresaliente (9–10)"],
+    filas:[
+      ["Rigor técnico","Errores de concepto o datos incorrectos","Contenido correcto pero incompleto","Correcto y completo","Correcto, completo y con detalle profesional"],
+      ["Justificación","Decisiones sin justificar","Justifica con razones genéricas","Relaciona la decisión con su vino y su parcela","Compara alternativas y explica por qué descarta las otras"],
+      ["Datos y fuentes","Sin datos o sin fuente","Datos sin interpretar","Datos propios o reales interpretados","Datos interpretados, con fuentes citadas y limitaciones señaladas"],
+      ["Adaptación a Lanzarote","Soluciones copiadas de otra zona","Menciona el medio insular","Adapta la decisión al picón, el viento y el secano","La adaptación es el eje de la decisión"],
+      ["Comunicación","Desordenado o ilegible","Claro, con fallos de forma","Claro, ordenado y con vocabulario técnico","Profesional: listo para entregar a una bodega"]
+    ]
+  };
+  const HITOS = [
+    ["2026-10-26","Lanzamiento","Grupos, sorteo de encargos, roles y cuaderno de proyecto."],
+    ["2026-11-23","Revisión intermedia · fase 1","Tareas 1.1 a 1.5 en borrador, con comentarios de la docente y sin nota."],
+    ["2026-12-14","Cierre de la fase 1","Informe de idoneidad y plan de maduración, y exposición de 5 minutos."],
+    ["2027-01-11","Arranque de la fase 2","Cambio de roles y correcciones del informe de la fase 1."],
+    ["2027-02-15","Revisión intermedia · fase 2","Tareas 2.1 a 2.4 en borrador, con plano y sistema de conducción."],
+    ["2027-03-15","Cierre de la fase 2 (antes de Semana Santa)","Revisión entre grupos y entrega del proyecto de plantación y plan anual."],
+    ["2027-04-12","Revisión intermedia · fase 3","Fichas de diagnóstico y estilo de protección en borrador."],
+    ["2027-04-23","Entrega final","Plan de protección y seguridad y dossier completo."],
+    ["2027-04-26","Defensas (26–30 de abril)","Defensa oral de cada grupo ante «la bodega», antes de la Dual del 2 de mayo."]
+  ];
+  const CHECK = {
+    "Fase 1":["La ficha de la variedad incluye fotos propias de sus órganos","Hemos justificado si usamos pie franco o portainjerto","El calendario fenológico usa los estados de Baggiolini","El plan de maduración dice qué madurez buscamos y cómo muestrear","La gráfica de ºBrix, pH y acidez lleva su fuente","El análisis de suelo está interpretado, no solo copiado","Hemos calculado al menos un índice bioclimático","Cada apartado lleva el nombre de quien lo redactó"],
+    "Fase 2":["El material vegetal es coherente con la fase 1","El plano está a escala e indica orientación, marco y densidad","El sistema de conducción compara al menos dos alternativas","El plan de poda indica sistema, época y herramientas","El abonado se basa en el análisis de suelo de la fase 1","El plan de riego justifica si regamos o no","Hemos incorporado las mejoras de la revisión entre grupos","Cada apartado lleva el nombre de quien lo redactó"],
+    "Fase 3":["Las fichas de diagnóstico incluyen el umbral de intervención","El estilo de protección encaja con la filosofía de la bodega","Cada tratamiento indica producto, dosis, momento y equipo","Los tratamientos están ligados al calendario fenológico","El plan de seguridad recoge los EPI de cada labor","Explicamos qué hacer con envases y restos","El dossier final recoge las correcciones de las fases 1 y 2","Cada persona ha ensayado su parte de la defensa"]
+  };
+  const QUIZ = [
+    {p:"¿Sustituye el proyecto a los exámenes de cada UT?", o:["Sí, ya no hay exámenes","No, es una evidencia más para los CE","Solo en el 3.er trimestre"], c:1, f:"Los exámenes se mantienen. El proyecto aporta evidencias para CE concretos, que se promedian con exámenes y prácticas."},
+    {p:"¿Cuántas fases tiene el proyecto?", o:["Una, que se entrega en abril","Tres, una por trimestre","Ocho, una por UT"], c:1, f:"Hay tres fases, una por trimestre, y cada una cierra con un entregable."},
+    {p:"¿Qué se decide en la tarea 1.2?", o:["La fecha de vendimia","Si se usa pie franco o portainjerto","El sistema de poda"], c:1, f:"Hay que justificarlo teniendo en cuenta que Canarias es zona prefiloxérica."},
+    {p:"En octubre no hay uva en Lanzarote. ¿Con qué se hace la tarea 1.5?", o:["Con datos reales de maduración de la campaña anterior","Con datos inventados","Se deja para julio"], c:0, f:"Se trabaja con series reales de controles de maduración de la campaña anterior."},
+    {p:"¿Qué ocurre si alguien no participa en un apartado?", o:["Se le pone la misma nota que al grupo","Ese CE se le evalúa con una evidencia individual","Suspende el proyecto entero"], c:1, f:"El cuaderno de proyecto y la coevaluación sirven para detectarlo; ese CE se evalúa con una pregunta oral o una tarea breve."},
+    {p:"¿Cuenta para la nota la coevaluación entre compañeros?", o:["Sí, un 20 %","No, es formativa","Solo si es negativa"], c:1, f:"Es formativa: sirve para detectar problemas de reparto a tiempo, pero no suma ni resta nota."},
+    {p:"Un CE tiene examen 6, entregable 8 y práctica 7. ¿Cuál es su nota?", o:["6","7","8"], c:1, f:"Es la media aritmética: (6 + 8 + 7) ÷ 3 = 7."},
+    {p:"¿Cuándo es la defensa final del proyecto?", o:["En diciembre","Del 26 al 30 de abril, antes de la Dual","Durante la Dual"], c:1, f:"La defensa es a finales de abril, antes de empezar la formación Dual el 2 de mayo."}
+  ];
+
+  /* ---------- Utilidades ---------- */
+  const $ = s => document.querySelector(s);
+  const el = (tag, attrs={}, html="") => { const e=document.createElement(tag); for(const k in attrs){ if(k==="class") e.className=attrs[k]; else e.setAttribute(k,attrs[k]); } if(html) e.innerHTML=html; return e; };
+  const store = {
+    get(k){ try{ return JSON.parse(localStorage.getItem(k)); }catch(e){ return null; } },
+    set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+  };
+
+  /* ---------- Encargos ---------- */
+  const lista = $("#listaEncargos");
+  ENCARGOS.forEach(e => {
+    lista.appendChild(el("article",{class:"encargo","data-g":e.g},
+      `<span class="gnum">${e.g}</span><div class="zona">${e.zona}</div><h3>${e.vino}</h3><div class="reto"><b>Lo que os obliga a decidir:</b> ${e.reto}</div>`));
+  });
+  let girando=false;
+  $("#btnSorteo").addEventListener("click", () => {
+    if(girando) return; girando=true;
+    const cards=[...document.querySelectorAll(".encargo")];
+    const fin=Math.floor(Math.random()*cards.length);
+    let i=0, vueltas=cards.length*2+fin;
+    $("#resSorteo").textContent="Sorteando…";
+    const paso=()=>{
+      cards.forEach(c=>c.classList.remove("elegido"));
+      cards[i%cards.length].classList.add("elegido");
+      if(i>=vueltas){ const e=ENCARGOS[fin]; $("#resSorteo").textContent=`Encargo ${e.g}: ${e.vino} en ${e.zona.split(" · ")[0]}`; girando=false; return; }
+      i++; setTimeout(paso, 60+i*6);
+    };
+    paso();
+  });
+  $("#btnLimpiar").addEventListener("click",()=>{ document.querySelectorAll(".encargo").forEach(c=>c.classList.remove("elegido")); $("#resSorteo").textContent=""; });
+
+  /* ---------- Roles ---------- */
+  const lr=$("#listaRoles");
+  ROLES.forEach(r=>{
+    const b=el("button",{class:`rol ${r.c}`,"aria-expanded":"false"},
+      `<div><div class="emoji">${r.e}</div><h3>${r.n}</h3><div class="detalle">${r.d}</div></div><div class="mas">Ver qué hace →</div>`);
+    b.addEventListener("click",()=>{ const a=b.classList.toggle("abierto"); b.setAttribute("aria-expanded",a); });
+    lr.appendChild(b);
+  });
+
+  /* ---------- Fases ---------- */
+  const tabs=$("#fasesTabs"), panel=$("#fasePanel");
+  function pintaFase(idx){
+    [...tabs.children].forEach((t,i)=>{ t.classList.toggle("activa",i===idx); t.setAttribute("aria-selected",i===idx); });
+    const f=FASES[idx];
+    panel.innerHTML=`<div class="fase-top"><div><h3>Fase ${idx+1} · ${f.n}</h3><div class="meta">${f.h} · ${f.ut}</div></div><div class="fase-ra">${f.ra.map(r=>`<span class="tag vino">${r}</span>`).join("")}</div></div>
+      <p style="margin-bottom:16px">${f.intro}</p><div class="tareas"></div><div class="entregable">${f.ent}</div><div class="aviso">${f.aviso}</div>`;
+    const cont=panel.querySelector(".tareas");
+    f.tareas.forEach(t=>{
+      const d=el("div",{class:"tarea"});
+      d.innerHTML=`<button aria-expanded="false"><span class="cod">${t[0]}</span><span class="tit">${t[1]}</span><span class="ut">${t[2]}</span><span class="flecha">▶</span></button>
+        <div class="cuerpo"><b>Qué debe aparecer:</b> ${t[4]}<div class="ce"><span class="tag">${t[2]}</span>${t[3]!=="—"?`<span class="tag oro">CE: ${t[3]}</span>`:`<span class="tag oro">Integra todos los CE anteriores</span>`}</div></div>`;
+      const b=d.querySelector("button");
+      b.addEventListener("click",()=>{ const a=d.classList.toggle("abierta"); b.setAttribute("aria-expanded",a); });
+      cont.appendChild(d);
+    });
+    store.set("abp_fase",idx);
+  }
+  FASES.forEach((f,i)=>{
+    const b=el("button",{class:"ftab",role:"tab"},`<div class="t">Fase ${i+1} · ${f.t}</div><div class="n">${f.n}</div><div class="h">${f.h}</div>`);
+    b.addEventListener("click",()=>pintaFase(i));
+    tabs.appendChild(b);
+  });
+  const fGuardada=store.get("abp_fase");
+  pintaFase(Number.isInteger(fGuardada)&&fGuardada>=0&&fGuardada<3?fGuardada:0);
+
+  /* ---------- Calculadora CE ---------- */
+  function calc(){
+    const vals=["#cEx","#cPr","#cPa"].map(s=>$(s).value.trim()).filter(v=>v!=="").map(Number).filter(v=>!isNaN(v)).map(v=>Math.min(10,Math.max(0,v)));
+    if(!vals.length){ $("#cRes").textContent="–"; $("#cFor").textContent="Introduce al menos una nota."; return; }
+    const m=vals.reduce((a,b)=>a+b,0)/vals.length;
+    const r=Math.round(m*100)/100;
+    const fmt=n=>String(n).replace(".",",");
+    $("#cRes").textContent=fmt(r);
+    $("#cFor").textContent=vals.length>1?`(${vals.map(fmt).join(" + ")}) ÷ ${vals.length} = ${fmt(r)}`:`Una sola evidencia: la nota del CE es ${fmt(r)}`;
+  }
+  ["#cEx","#cPr","#cPa"].forEach(s=>$(s).addEventListener("input",calc)); calc();
+
+  /* ---------- Rúbrica ---------- */
+  const rub=$("#rubrica");
+  rub.innerHTML=`<thead><tr><th>Indicador</th>${RUBRICA.niveles.map(n=>`<th>${n}</th>`).join("")}</tr></thead><tbody>${RUBRICA.filas.map((f,i)=>`<tr><td>${f[0]}</td>${f.slice(1).map((c,j)=>`<td class="nivel" data-f="${i}" data-n="${j}" tabindex="0" role="button">${c}</td>`).join("")}</tr>`).join("")}</tbody>`;
+  const selRub={};
+  function resRub(){
+    const ks=Object.keys(selRub);
+    if(!ks.length){ $("#rubRes").textContent=""; return; }
+    const pts=[2.5,5.5,7.5,9.5];
+    const m=ks.reduce((a,k)=>a+pts[selRub[k]],0)/ks.length;
+    $("#rubRes").textContent=`Has valorado ${ks.length} de ${RUBRICA.filas.length} indicadores. Nivel orientativo: ${RUBRICA.niveles[m<5?0:m<7?1:m<9?2:3].split(" (")[0].toLowerCase()}.`;
+  }
+  rub.addEventListener("click",e=>{
+    const td=e.target.closest("td.nivel"); if(!td) return;
+    const f=td.dataset.f, n=Number(td.dataset.n);
+    rub.querySelectorAll(`td[data-f="${f}"]`).forEach(c=>c.classList.remove("sel"));
+    if(selRub[f]===n){ delete selRub[f]; } else { td.classList.add("sel"); selRub[f]=n; }
+    resRub();
+  });
+  rub.addEventListener("keydown",e=>{ if((e.key==="Enter"||e.key===" ")&&e.target.matches("td.nivel")){ e.preventDefault(); e.target.click(); } });
+
+  /* ---------- Calendario ---------- */
+  const hoy=new Date(); hoy.setHours(0,0,0,0);
+  const meses=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+  const fecha=s=>{ const [y,m,d]=s.split("-").map(Number); return new Date(y,m-1,d); };
+  let sig=-1;
+  HITOS.forEach((h,i)=>{ if(sig<0 && fecha(h[0])>=hoy) sig=i; });
+  const tl=$("#timeline");
+  HITOS.forEach((h,i)=>{
+    const d=fecha(h[0]);
+    const cls=i===sig?"siguiente":(d<hoy?"pasado":"");
+    tl.appendChild(el("div",{class:`hito ${cls}`},`<div class="f">Semana del ${d.getDate()} de ${meses[d.getMonth()]} de ${d.getFullYear()}</div><h3>${h[1]}</h3><p>${h[2]}</p>`));
+  });
+  const cu=$("#cuenta");
+  if(sig>=0){
+    const dias=Math.round((fecha(HITOS[sig][0])-hoy)/864e5);
+    cu.innerHTML=`<div class="dias">${dias===0?"¡Hoy!":dias}</div><div class="q">${dias===0?"":(dias===1?"día para el próximo hito":"días para el próximo hito")}<b>${HITOS[sig][1]}</b></div>`;
+  } else {
+    cu.innerHTML=`<div class="dias">🍇</div><div class="q">El proyecto ha terminado<b>¡Buena Dual!</b></div>`;
+  }
+
+  /* ---------- Checklist ---------- */
+  const ct=$("#checkTabs"), cl=$("#checkLista");
+  let faseCheck=Object.keys(CHECK)[0];
+  const estado=store.get("abp_check")||{};
+  function pintaCheck(){
+    [...ct.children].forEach(b=>b.classList.toggle("activa",b.dataset.f===faseCheck));
+    cl.innerHTML="";
+    const items=CHECK[faseCheck]; const st=estado[faseCheck]||[];
+    items.forEach((t,i)=>{
+      const li=el("li",{class:st[i]?"hecho":""});
+      const id=`ck-${faseCheck.replace(" ","")}-${i}`;
+      li.innerHTML=`<label for="${id}"><input type="checkbox" id="${id}" ${st[i]?"checked":""}><span>${t}</span></label>`;
+      li.querySelector("input").addEventListener("change",ev=>{
+        estado[faseCheck]=estado[faseCheck]||[]; estado[faseCheck][i]=ev.target.checked;
+        li.classList.toggle("hecho",ev.target.checked); store.set("abp_check",estado); barra();
+      });
+      cl.appendChild(li);
+    });
+    barra();
+  }
+  function barra(){
+    const items=CHECK[faseCheck], st=estado[faseCheck]||[];
+    const n=items.filter((_,i)=>st[i]).length;
+    $("#barra").style.width=`${n/items.length*100}%`;
+    $("#barraTxt").textContent=n===items.length?`✅ ¡Todo listo para entregar la ${faseCheck.toLowerCase()}!`:`${n} de ${items.length} comprobaciones hechas`;
+  }
+  Object.keys(CHECK).forEach(k=>{
+    const b=el("button",{class:"ctab","data-f":k},k);
+    b.addEventListener("click",()=>{ faseCheck=k; pintaCheck(); });
+    ct.appendChild(b);
+  });
+  pintaCheck();
+
+  /* ---------- Quiz ---------- */
+  const qb=$("#quizBox"); let qi=0, aciertos=0;
+  function pintaQuiz(){
+    if(qi>=QUIZ.length){
+      const msg=aciertos===QUIZ.length?"¡Perfecto! Ya sabes cómo funciona el proyecto.":aciertos>=6?"¡Muy bien! Repasa la sección de las preguntas que fallaste.":"Vuelve a leer las secciones del aula y repite el cuestionario.";
+      qb.innerHTML=`<div class="preg final"><div class="v">${aciertos}/${QUIZ.length}</div><p style="margin:8px 0 18px">${msg}</p><button class="btn verde" id="qReset">Repetir</button></div>`;
+      $("#qReset").addEventListener("click",()=>{ qi=0; aciertos=0; pintaQuiz(); });
+      return;
+    }
+    const q=QUIZ[qi];
+    qb.innerHTML=`<div class="preg"><div class="contador">Pregunta ${qi+1} de ${QUIZ.length}</div><h3>${q.p}</h3><div class="opcs">${q.o.map((o,i)=>`<button class="opc" data-i="${i}">${o}</button>`).join("")}</div><div class="feedback" id="qFb" aria-live="polite"></div><div class="quiz-nav"><span class="nota" style="margin:0">Aciertos: ${aciertos}</span><button class="btn" id="qSig" style="visibility:hidden">${qi===QUIZ.length-1?"Ver resultado":"Siguiente →"}</button></div></div>`;
+    qb.querySelectorAll(".opc").forEach(b=>b.addEventListener("click",()=>{
+      const i=Number(b.dataset.i), ok=i===q.c;
+      qb.querySelectorAll(".opc").forEach((x,j)=>{ x.disabled=true; if(j===q.c) x.classList.add("ok"); });
+      if(!ok) b.classList.add("mal"); else aciertos++;
+      const fb=$("#qFb"); fb.innerHTML=`<b>${ok?"✅ ¡Correcto!":"❌ No es esa."}</b> ${q.f}`; fb.classList.add("v");
+      $("#qSig").style.visibility="visible";
+      qb.querySelector(".quiz-nav .nota").textContent=`Aciertos: ${aciertos}`;
+    }));
+    $("#qSig").addEventListener("click",()=>{ qi++; pintaQuiz(); });
+  }
+  pintaQuiz();
+
+  /* ---------- Menú activo y barra de progreso ---------- */
+  const enlaces=[...document.querySelectorAll("nav.menu a")];
+  const secciones=enlaces.map(a=>document.querySelector(a.getAttribute("href")));
+  function onScroll(){
+    const h=document.documentElement;
+    const p=h.scrollTop/(h.scrollHeight-h.clientHeight);
+    $("#progreso").style.width=`${Math.max(0,Math.min(1,p))*100}%`;
+    let act=-1; secciones.forEach((s,i)=>{ if(s && s.getBoundingClientRect().top<140) act=i; });
+    enlaces.forEach((a,i)=>a.classList.toggle("activo",i===act));
+    if(act>=0){ const a=enlaces[act]; const nav=a.parentElement; if(a.offsetLeft<nav.scrollLeft||a.offsetLeft+a.offsetWidth>nav.scrollLeft+nav.clientWidth) nav.scrollLeft=a.offsetLeft-20; }
+  }
+  window.addEventListener("scroll",onScroll,{passive:true}); onScroll();
+})();
+</script>
+</body>
+</html>
